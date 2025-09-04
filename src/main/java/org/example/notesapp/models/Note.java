@@ -20,4 +20,7 @@ public class Note {
     @Column(columnDefinition = "LONGTEXT")
     private String content;
 
+    @Column(unique = true)
+    private String shareId;
+
 }

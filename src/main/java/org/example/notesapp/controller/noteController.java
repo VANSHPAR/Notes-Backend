@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/app/note")
@@ -20,7 +21,7 @@ public class noteController {
 
     @PostMapping("/add")
     public ResponseEntity<Note> createNote(@RequestParam String title, @RequestParam String content){
-        Note note=Note.builder().title(title).content(content).build();
+        Note note=Note.builder().title(title).content(content).shareId(UUID.randomUUID().toString()).build();
         noteRepository.save(note);
         return ResponseEntity.ok(note);
     }
@@ -36,6 +37,16 @@ public class noteController {
         Optional<Note> note=noteRepository.findById(id);
         if(note.isPresent()){
             return ResponseEntity.ok(note.get());
+        }
+        return ResponseEntity.notFound().build();
+
+    }
+    @GetMapping("/share/{shareId}")
+    public ResponseEntity<Note> getNoteByshareId(@PathVariable String shareId){
+        Optional<Note> note=noteRepository.findNoteByShareId(shareId);
+        if(note.isPresent()){
+            return ResponseEntity.ok(note.get());
+
         }
         return ResponseEntity.notFound().build();
 
