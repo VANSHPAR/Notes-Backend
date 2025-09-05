@@ -17,7 +17,7 @@ public class Note {
     private String title;
 
     @Lob
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column(unique = true)

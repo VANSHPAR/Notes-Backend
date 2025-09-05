@@ -42,7 +42,7 @@ public class noteController {
 
     }
     @GetMapping("/share/{shareId}")
-    public ResponseEntity<Note> getNoteByshareId(@PathVariable String shareId){
+    public ResponseEntity<Note> getNoteByShareId(@PathVariable String shareId){
         Optional<Note> note=noteRepository.findNoteByShareId(shareId);
         if(note.isPresent()){
             return ResponseEntity.ok(note.get());
